@@ -394,6 +394,51 @@ h1, h2, h3, h4 { font-family: var(--display); font-weight: 600; line-height: 1.0
     to { transform: translateX(-50%); }
 }
 
+/*=============== CREDO ===============*/
+.credo-section { padding: 0; }
+.credo {
+    margin-block: clamp(1rem, 3vw, 2rem);
+    padding: 1.6rem 1.75rem;
+    border-left: 3px solid var(--mint);
+    background: linear-gradient(90deg, rgba(0, 255, 209, 0.06), transparent 70%);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    position: relative;
+}
+.credo::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 0 -3px;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    border: 1px solid var(--line);
+    border-left: none;
+    pointer-events: none;
+}
+.credo__eyebrow {
+    font-family: var(--mono);
+    font-size: .72rem;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+    color: var(--mint);
+    display: block;
+    margin-bottom: .65rem;
+}
+.credo__line {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: clamp(1.1rem, 1.9vw, 1.45rem);
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    line-height: 1.4;
+    max-width: 70ch;
+}
+.credo__line strong {
+    background: linear-gradient(120deg, var(--mint), var(--violet) 70%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-weight: 700;
+}
+
 /*=============== QUEST LOG ===============*/
 .quests__intro { display: grid; grid-template-columns: 1fr; gap: 2rem; margin-bottom: 4rem; align-items: end; }
 @media (min-width: 768px) { .quests__intro { grid-template-columns: 1.4fr 1fr; } }
