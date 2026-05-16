@@ -120,13 +120,15 @@ function scrollActive() {
 
     sections.forEach(current => {
         const sectionHeight = current.offsetHeight
-        const sectionTop = current.offsetTop - 50;
-        sections = current.getAttribute('id')
+        const sectionTop = current.offsetTop - 50
+        const sectionId = current.getAttribute('id')
+        const link = document.querySelector('.nav__menu a[href*=' + sectionId + ']')
+        if (!link) return
 
         if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-            document.querySelector('.nav__menu a[href*=' + sections + ']').classList.add('active-link')
+            link.classList.add('active-link')
         } else {
-            document.querySelector('.nav__menu a[href*=' + sectionId + ']').classList.remove('active-link')
+            link.classList.remove('active-link')
         }
     })
 }
@@ -178,9 +180,16 @@ themeButton.addEventListener('click', () => {
 })
 
 var typed = new Typed(".auto-input", {
-    strings: ["Tarun Patnala", "Automation Tester", "Functional Tester", "ETL Tester", "API Tester"],
-    typespeed: 100,
-    backspeed: 100,
+    strings: [
+        "Tarun Patnala",
+        "Senior AI Engineer",
+        "Conversational AI Specialist",
+        "Voice AI Engineer",
+        "Agentic AI Builder",
+        "Copilot Studio Pro"
+    ],
+    typeSpeed: 90,
+    backSpeed: 60,
     fadeout: true,
     loop: true
 })
