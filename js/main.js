@@ -1,230 +1,166 @@
-const navMenu = document.getElementById('nav-menu'),
-    navToggle = document.getElementById('nav-toggle'),
-    navClose = document.getElementById('nav-close')
+/* ============================================================
+   TARUN.PATNALA — Portfolio interactions
+   ============================================================ */
 
+(function () {
+    'use strict';
 
-if (navToggle) {
-    navToggle.addEventListener('click', () => {
-        navMenu.classList.add('show-menu')
-    })
-}
-
-if (navClose) {
-    navClose.addEventListener('click', () => {
-        navMenu.classList.remove('show-menu')
-    })
-}
-
-const navLink = document.querySelectorAll('.nav__link')
-
-function linkAction() {
-    const navMenu = document.getElementById('nav-menu')
-    navMenu.classList.remove('show-menu')
-}
-navLink.forEach(n => n.addEventListener('click', linkAction))
-
-/*Accordion skills*/
-const skillsContent = document.getElementsByClassName('skills__content'),
-    skillsHeader = document.querySelectorAll('.skills__header')
-
-function toggleSkills() {
-    let itemClass = this.parentNode.className
-
-    for (i = 0; i < skillsContent.length; i++) {
-        skillsContent[i].className = 'skills__content skills__close'
-    }
-    if (itemClass === 'skills__content skills__close') {
-        this.parentNode.className = 'skills__content skills__open'
-    }
-}
-
-skillsHeader.forEach((el) => {
-    el.addEventListener('click', toggleSkills)
-})
-
-
-const tabs = document.querySelectorAll('[data-target]'),
-    tabContents = document.querySelectorAll('[data-content]')
-
-tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-        const target = document.querySelector(tab.dataset.target)
-        tabContents.forEach(tabContent => {
-            tabContent.classList.remove('qualification__active')
-        })
-        target.classList.add('qualification__active')
-
-        tabs.forEach(tab => {
-            tab.classList.remove('qualification__active')
-        })
-        tab.classList.add('qualification__active')
-    })
-})
-
-const modalViews = document.querySelectorAll('.services__modal'),
-    modalBtns = document.querySelectorAll('.services__button'),
-    modalCloses = document.querySelectorAll('.services__modal-close')
-
-let modal = function(modalClick) {
-    modalViews[modalClick].classList.add('active-modal')
-}
-
-modalBtns.forEach((modalBtn, i) => {
-    modalBtn.addEventListener('click', () => {
-        modal(i)
-    })
-})
-
-modalCloses.forEach((modalClose) => {
-    modalClose.addEventListener('click', () => {
-        modalViews.forEach((modalView) => {
-            modalView.classList.remove('active-modal')
-        })
-    })
-})
-
-let swiperPortfolio = new Swiper('.portfolio__container', {
-    cssMode: true,
-    loop: true,
-
-    navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-    },
-    pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-    },
-});
-
-let swiperTestimonial = new Swiper('.testimonial__container', {
-    loop: true,
-    grabCursor: true,
-    spaceBetween: 48,
-    pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-        dynamicBullets: true,
-    },
-    breakpoints: {
-        568: {
-            slidesPerView: 2,
-        }
-    }
-});
-
-const sections = document.querySelectorAll('section[id]')
-
-function scrollActive() {
-    const scrollY = window.pageYOffset
-
-    sections.forEach(current => {
-        const sectionHeight = current.offsetHeight
-        const sectionTop = current.offsetTop - 50
-        const sectionId = current.getAttribute('id')
-        const link = document.querySelector('.nav__menu a[href*=' + sectionId + ']')
-        if (!link) return
-
-        if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-            link.classList.add('active-link')
-        } else {
-            link.classList.remove('active-link')
-        }
-    })
-}
-window.addEventListener('scroll', scrollActive)
-
-function scrollHeader() {
-    const nav = document.getElementById('header')
-        // When the scroll is greater than 200 viewport height, add the scroll-header class to the header tag
-    if (this.scrollY >= 80) nav.classList.add('scroll-header');
-    else nav.classList.remove('scroll-header')
-}
-window.addEventListener('scroll', scrollHeader)
-
-function scrollUp() {
-    const scrollUp = document.getElementById('scroll-up');
-    // When the scroll is higher than 560 viewport height, add the show-scroll class to the a tag with the scroll-top class
-    if (this.scrollY >= 560) scrollUp.classList.add('show-scroll');
-    else scrollUp.classList.remove('show-scroll')
-}
-window.addEventListener('scroll', scrollUp)
-
-const themeButton = document.getElementById('theme-button')
-const darkTheme = 'dark-theme'
-const iconTheme = 'uil-sun'
-
-// Previously selected topic (if user selected)
-const selectedTheme = localStorage.getItem('selected-theme')
-const selectedIcon = localStorage.getItem('selected-icon')
-
-// We obtain the current theme that the interface has by validating the dark-theme class
-const getCurrentTheme = () => document.body.classList.contains(darkTheme) ? 'dark' : 'light'
-const getCurrentIcon = () => themeButton.classList.contains(iconTheme) ? 'uil-moon' : 'uil-sun'
-
-// We validate if the user previously chose a topic
-if (selectedTheme) {
-    // If the validation is fulfilled, we ask what the issue was to know if we activated or deactivated the dark
-    document.body.classList[selectedTheme === 'dark' ? 'add' : 'remove'](darkTheme)
-    themeButton.classList[selectedIcon === 'uil-moon' ? 'add' : 'remove'](iconTheme)
-}
-
-// Activate / deactivate the theme manually with the button
-themeButton.addEventListener('click', () => {
-    // Add or remove the dark / icon theme
-    document.body.classList.toggle(darkTheme)
-    themeButton.classList.toggle(iconTheme)
-        // We save the theme and the current icon that the user chose
-    localStorage.setItem('selected-theme', getCurrentTheme())
-    localStorage.setItem('selected-icon', getCurrentIcon())
-})
-
-var typed = new Typed(".auto-input", {
-    strings: [
-        "Tarun Patnala",
-        "Senior AI Engineer",
-        "Conversational AI Specialist",
-        "Voice AI Engineer",
-        "Agentic AI Builder",
-        "Copilot Studio Pro"
-    ],
-    typeSpeed: 90,
-    backSpeed: 60,
-    fadeout: true,
-    loop: true
-})
-
-function sendmail() {
-
-    var name = $('#Name').val();
-    var email = $('#Email').val();
-    var subject = $('#Subject').val();
-    var message = $('#Message').val();
-
-    var Body = 'Name: ' + name + '<br>Email: ' + email + '<br>Subject: ' + subject + '<br>Message: ' + message;
-
-    Email.send({
-        Host: "smtp.elasticemail.com",
-        Username: "tarunpatnala@gmail.com",
-        Password: "72E2456598FBEE085B8FA04082F23176C7C4",
-        To: "tarunpatnala@gmail.com",
-        From: "tarunpatnala@gmail.com",
-        Subject: "New message from contact me form by " + name,
-        Body: Body
-    }).then(
-        message => {
-            console.log(message);
-            if (message == 'OK') {
-                alert('Your mail has been send. Thank you for connecting.');
-            } else {
-                console.error(message);
-                alert('There is error at sending message.')
-
+    /* ---------- Live clock (Sydney) ---------- */
+    const clockEl = document.getElementById('clock');
+    if (clockEl) {
+        const tick = () => {
+            try {
+                const fmt = new Intl.DateTimeFormat('en-AU', {
+                    timeZone: 'Australia/Sydney',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: false
+                });
+                clockEl.textContent = fmt.format(new Date());
+            } catch (_) {
+                const d = new Date();
+                clockEl.textContent = String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
             }
+        };
+        tick();
+        setInterval(tick, 30 * 1000);
+    }
 
+    /* ---------- Year ---------- */
+    const yearEl = document.getElementById('year');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+    /* ---------- Mobile nav ---------- */
+    const navToggle = document.getElementById('nav-toggle');
+    const navLinks = document.getElementById('nav-links');
+    if (navToggle && navLinks) {
+        navToggle.addEventListener('click', () => {
+            const open = navLinks.classList.toggle('is-open');
+            navToggle.setAttribute('aria-expanded', String(open));
+        });
+        navLinks.addEventListener('click', (e) => {
+            if (e.target.tagName === 'A') {
+                navLinks.classList.remove('is-open');
+                navToggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+    }
+
+    /* ---------- Scroll-spy on nav ---------- */
+    const navAnchors = Array.from(document.querySelectorAll('.nav__links a[href^="#"]'));
+    const spyTargets = navAnchors
+        .map(a => document.querySelector(a.getAttribute('href')))
+        .filter(Boolean);
+    if (spyTargets.length && 'IntersectionObserver' in window) {
+        const spy = new IntersectionObserver(
+            (entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = '#' + entry.target.id;
+                        navAnchors.forEach(a => a.classList.toggle('is-active', a.getAttribute('href') === id));
+                    }
+                });
+            },
+            { rootMargin: '-40% 0px -55% 0px', threshold: 0 }
+        );
+        spyTargets.forEach(t => spy.observe(t));
+    }
+
+    /* ---------- Reveal on scroll ---------- */
+    const revealEls = document.querySelectorAll('.reveal, .reveal-stagger');
+    if ('IntersectionObserver' in window) {
+        const obs = new IntersectionObserver(
+            (entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        fillBarsIn(entry.target);
+                        obs.unobserve(entry.target);
+                    }
+                });
+            },
+            { rootMargin: '0px 0px -10% 0px', threshold: 0.08 }
+        );
+        revealEls.forEach(el => obs.observe(el));
+    } else {
+        revealEls.forEach(el => el.classList.add('is-visible'));
+        fillBarsIn(document);
+    }
+
+    function fillBarsIn(scope) {
+        const bars = scope.querySelectorAll('[data-fill]');
+        bars.forEach(b => {
+            const pct = Math.max(0, Math.min(100, parseFloat(b.getAttribute('data-fill'))));
+            requestAnimationFrame(() => { b.style.width = pct + '%'; });
+        });
+    }
+
+    /* ---------- Loadout filter ---------- */
+    const tabs = document.querySelectorAll('#loadoutTabs .loadout__tab');
+    const cards = document.querySelectorAll('#loadoutGrid .loadout__card');
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('is-active'));
+            tab.classList.add('is-active');
+            const filter = tab.dataset.filter;
+            cards.forEach(c => {
+                const show = filter === 'all' || c.dataset.cat === filter;
+                c.style.display = show ? '' : 'none';
+            });
+        });
+    });
+
+    /* ---------- Quest card spotlight follow ---------- */
+    document.querySelectorAll('[data-tilt]').forEach(card => {
+        card.addEventListener('pointermove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const mx = ((e.clientX - rect.left) / rect.width) * 100;
+            const my = ((e.clientY - rect.top) / rect.height) * 100;
+            card.style.setProperty('--mx', mx + '%');
+            card.style.setProperty('--my', my + '%');
+        });
+    });
+
+    /* ---------- Custom cursor ---------- */
+    const ring = document.getElementById('cursor-ring');
+    const dot = document.getElementById('cursor-dot');
+    const supportsHover = window.matchMedia('(hover: hover)').matches;
+    if (ring && dot && supportsHover) {
+        let mx = window.innerWidth / 2, my = window.innerHeight / 2;
+        let rx = mx, ry = my;
+        window.addEventListener('pointermove', (e) => {
+            mx = e.clientX; my = e.clientY;
+            dot.style.transform = `translate(${mx}px, ${my}px) translate(-50%, -50%)`;
+        });
+        const loop = () => {
+            rx += (mx - rx) * 0.18;
+            ry += (my - ry) * 0.18;
+            ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)`;
+            requestAnimationFrame(loop);
+        };
+        loop();
+
+        const hoverSelector = 'a, button, [data-tilt], .loadout__card, .trophy, .cred, .channel, .btn';
+        document.querySelectorAll(hoverSelector).forEach(el => {
+            el.addEventListener('pointerenter', () => ring.classList.add('is-hover'));
+            el.addEventListener('pointerleave', () => ring.classList.remove('is-hover'));
+        });
+    }
+
+    /* ---------- Hero word rotator (subtle) ---------- */
+    const rotator = document.querySelector('[data-rotator]');
+    if (rotator) {
+        const words = JSON.parse(rotator.getAttribute('data-words') || '[]');
+        let i = 0;
+        if (words.length) {
+            setInterval(() => {
+                i = (i + 1) % words.length;
+                rotator.style.opacity = '0';
+                setTimeout(() => {
+                    rotator.textContent = words[i];
+                    rotator.style.opacity = '1';
+                }, 220);
+            }, 2400);
         }
-    );
-
-
-
-}
+    }
+})();
